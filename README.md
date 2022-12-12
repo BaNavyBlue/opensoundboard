@@ -1,3 +1,5 @@
+Code is currently only written for linux.  Will be expanded if I ever get back to it.
+
 Notes on compiling:
 
 If you're using an older version of gcc/g++ to compile
