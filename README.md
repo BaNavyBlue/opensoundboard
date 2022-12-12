@@ -1,5 +1,8 @@
 Code is currently only written for linux.  Will be expanded if I ever get back to it.
 
+Based some of my code off of https://learnopengl.com/ A good place to learn about using openGL.
+Also https://lazyfoo.net/ for SDL examples.
+
 Notes on compiling:
 
 If you're using an older version of gcc/g++ to compile
