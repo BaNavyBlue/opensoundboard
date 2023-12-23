@@ -1,6 +1,6 @@
 # OpenSoundBoard
 
-<img src="https://github.com/BaNavyBlue/opensoundboard/blob/main/ui.png" alt="Sound Board Main Panel" width="500"/>
+<img src="https://github.com/BaNavyBlue/opensoundboard/blob/main/ui.png" alt="Sound Board Main Panel" width="750"/>
 
 Code is currently only written for linux.  Will be expanded if I ever get back to it.
 
