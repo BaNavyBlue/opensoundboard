@@ -392,10 +392,21 @@ void BUTTON::draw_body()
     glDrawArrays(GL_TRIANGLES, 0, 54);  
 }
 
-void BUTTON::handleEvent( SDL_Event* e, int &x, int &y )
+void BUTTON::handleEvent(bool finished)
+{
+    SDL_LockMutex(counterLock);
+    if(timeRemain < 0.01f && playing > 0.0f){
+        playing = 0.0f;
+        init_button();
+        gRenderQuad = true;
+    }
+    SDL_UnlockMutex(counterLock);
+}
+
+void BUTTON::handleEvent( SDL_Event* e, int &x, int &y)
 {
 	//If mouse event happened
-	if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP )
+	if( e->type == SDL_MOUSEMOTION || e->type == SDL_MOUSEBUTTONDOWN || e->type == SDL_MOUSEBUTTONUP)
 	{
 		//Get mouse position
 		SDL_GetMouseState( &x, &y );
@@ -405,13 +416,13 @@ void BUTTON::handleEvent( SDL_Event* e, int &x, int &y )
             gRenderQuad = true;
         }
 
-        SDL_LockMutex(counterLock);
-        if(timeRemain < 0.01f && playing > 0.0f){
-            playing = 0.0f;
-            init_button();
-            gRenderQuad = true;
-        }
-        SDL_UnlockMutex(counterLock);
+        // SDL_LockMutex(counterLock);
+        // if(timeRemain < 0.01f && playing > 0.0f){
+        //     playing = 0.0f;
+        //     init_button();
+        //     gRenderQuad = true;
+        // }
+        // SDL_UnlockMutex(counterLock);
 
 		//Check if mouse is in button
 		bool inside = true & (!esc_button) & (!button_window);
@@ -475,7 +486,6 @@ void BUTTON::handleEvent( SDL_Event* e, int &x, int &y )
                         ButtonID->push_back(myID);
                         playing = 0.3f;
                         timeRemain = sampleDuration;
-                        init_button();
                         Mix_PlayChannel( -1, sample, 0 );
                     }
                     SDL_UnlockMutex(counterLock);

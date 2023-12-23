@@ -4,7 +4,7 @@
 #include "opt_window.h"
 
 
-
+class BUTTON;
 
 // pass time data to timer thread
 struct countID{
@@ -22,6 +22,7 @@ struct CountThreadData{
     std::vector<countID> *ButtonID;
     SDL_mutex *counterLock;
     Shader *text_shader;
+    int clearID = 0;
 };
 
 struct TextInThreadData{
@@ -73,7 +74,8 @@ class BUTTON{
         
         void init_button();
         void draw_button(/*glm::mat4 position*/);  
-        void handleEvent( SDL_Event* e , int &x, int &y );
+        void handleEvent( SDL_Event* e , int &x, int &y);
+        void handleEvent(bool finished);
 
     private:
         void draw_back();

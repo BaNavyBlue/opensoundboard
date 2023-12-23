@@ -496,13 +496,12 @@ int main(){
     while( !quit )
     {
         //Handle events on queue
-        while( SDL_PollEvent( &e ) != 0 || data.finished)
+        while( SDL_PollEvent( &e ) != 0)
         {
             //User requests quit
             if( e.type == SDL_QUIT )
             {
                 quit = true;
-                printf("Quit request recieved\r\n");
             }
 
             //Handle button option window
@@ -560,7 +559,13 @@ int main(){
             for(int i = 0; i < 60; i++){
                 button_vec[i].handleEvent(&e, x, y);
             }
-            data.finished = false;
+        }
+
+        // deluminate playing button after finished
+        if(data.finished){
+            button_vec[data.clearID].handleEvent(data.finished);
+            data.clearID = 0;
+            data.finished = false;            
         }
 
         //Render quad
@@ -608,22 +613,17 @@ int main(){
     }
     //FT_Done_Face(face);
     //Destroy the mutex
-    std::cout << "Exiting" << std::endl;
     SDL_WaitThread(threadID, NULL);
-    printf("After SDL_WaitThread\r\n");
     //SDL_WaitThread(txtThreadID, NULL);
     SDL_DestroyMutex( data.counterLock );
-    printf("After SDL_DestroyMutex\r\n");
     data.counterLock = NULL;
 
     //Disable text input
     SDL_StopTextInput();
-    printf("After SDL_StopTextInput\r\n");
 	}
     
 	//Free resources and close SDL
 	close();
-    printf("After close\r\n");
 
 	return 0;
 }
@@ -947,6 +947,7 @@ int counting_thread(void* data){
                      *it->timeRemain -= TEN_MS_F;
                      if(*it->timeRemain < 0.01f){
                          *it->timeRemain = 0.0f;
+                         thd_data->clearID = *it->ID;
                          thd_data->ButtonID->erase(it);
                          thd_data->finished = true;
                          //gRenderQuad = true;
