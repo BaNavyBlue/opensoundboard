@@ -1,4 +1,4 @@
-#OpenSoundBoard
+# OpenSoundBoard
 
 <img src="https://github.com/BaNavyBlue/opensoundboard/blob/main/ui.png" alt="Sound Board Main Panel" width="500"/>
 
