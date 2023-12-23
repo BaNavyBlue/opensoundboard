@@ -39,6 +39,7 @@ class BUTTON{
     public:
         
         std::string label = "Default";
+        std::string samplePath;
         Shader *Button_Body;
         Shader *Button_Text;
         glm::mat4 model;

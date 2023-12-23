@@ -23,6 +23,7 @@
 #include <experimental/filesystem>
 #include <stdlib.h>
 #include <algorithm>
+#include <simdjson.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H 
 #include FT_GLYPH_H
@@ -48,13 +49,13 @@ struct Character {
     unsigned int Advance;    // Offset to advance to next glyph
 };
 
-typedef enum WINDOW_TYPE{
+enum WINDOW_TYPE{
     ESC_WIN = 0,
     BUTTON_WIN,
     MENU_WIN
 };
 
-typedef enum FIELD_TYPE{
+enum FIELD_TYPE{
     NEW = 0,
     SAVE,
     LOAD,

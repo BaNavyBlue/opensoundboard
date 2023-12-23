@@ -4,13 +4,14 @@
 */
 
 //#include "My_Headers.h"
-#include "button.h"
+//#include "button.h"
 #include "opt_window.h"
 //#define _HAS_CXX17 1
 #include <experimental/filesystem>
 //#include "opt_field.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h> 
+#include "save_config.h"
 //#include "shaderx.h"
 
 // camera * UNUSED *
@@ -97,7 +98,7 @@ int main(){
         dir.push_back(p.path());
     }
 
-    for(int i = 0; i < dir.size(); i++){
+    for(std::size_t i = 0; i < dir.size(); i++){
         printf("Filename: %s\n", dir[i].c_str());
     }
     
@@ -346,7 +347,8 @@ int main(){
     SDL_Thread* threadID = SDL_CreateThread( counting_thread, "MagicThread", (void*)&data );
     
     printf("Loading Samples\n");
-    button_vec[0].sample = Mix_LoadWAV("samples/low.wav");
+    button_vec[0].samplePath = "samples/low.wav";
+    button_vec[0].sample = Mix_LoadWAV(button_vec[0].samplePath.c_str());
     button_vec[0].label = "low.wav";
     button_vec[0].Button_Window->fields[0].label = button_vec[0].label;
     button_vec[0].sampleDuration = ((float)button_vec[0].sample->alen) / BYTES_S;
@@ -356,7 +358,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-    button_vec[1].sample = Mix_LoadWAV("samples/medium.wav");
+    button_vec[1].samplePath = "samples/medium.wav";
+    button_vec[1].sample = Mix_LoadWAV(button_vec[1].samplePath.c_str());
     button_vec[1].label = "medium.wav";
     button_vec[1].Button_Window->fields[0].label = button_vec[1].label;
     button_vec[1].sampleDuration = ((float)button_vec[1].sample->alen) / BYTES_S;
@@ -365,7 +368,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-    button_vec[2].sample = Mix_LoadWAV("samples/high.wav");
+    button_vec[2].samplePath = "samples/high.wav";
+    button_vec[2].sample = Mix_LoadWAV(button_vec[2].samplePath.c_str());
     button_vec[2].label = "high.wav";
     button_vec[2].Button_Window->fields[0].label = button_vec[2].label;
     button_vec[2].sampleDuration = ((float)button_vec[2].sample->alen) / BYTES_S;
@@ -374,7 +378,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-    button_vec[3].sample = Mix_LoadWAV("samples/GMILF.wav");
+    button_vec[3].samplePath = "samples/GMILF.wav";
+    button_vec[3].sample = Mix_LoadWAV(button_vec[3].samplePath.c_str());
     button_vec[3].label = "GMILF.wav";
     button_vec[3].Button_Window->fields[0].label = button_vec[3].label;
     button_vec[3].sampleDuration = ((float)button_vec[3].sample->alen) / BYTES_S;
@@ -383,7 +388,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-    button_vec[4].sample = Mix_LoadWAV("samples/WhyDidYouLeaveMe.wav");
+    button_vec[4].samplePath = "samples/WhyDidYouLeaveMe.wav";
+    button_vec[4].sample = Mix_LoadWAV(button_vec[4].samplePath.c_str());
     button_vec[4].label = "WhyDidYou";
     button_vec[4].Button_Window->fields[0].label = button_vec[4].label;
     button_vec[4].sampleDuration = ((float)button_vec[4].sample->alen) / BYTES_S;
@@ -391,8 +397,10 @@ int main(){
 	{
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
+    
 	}
-    button_vec[5].sample = Mix_LoadWAV("samples/cancer.wav");
+    button_vec[5].samplePath = "samples/cancer.wav";
+    button_vec[5].sample = Mix_LoadWAV(button_vec[5].samplePath.c_str());
     button_vec[5].label = "cancer.wav";
     button_vec[5].Button_Window->fields[0].label = button_vec[5].label;
     button_vec[5].sampleDuration = ((float)button_vec[5].sample->alen) / BYTES_S;
@@ -401,7 +409,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-    button_vec[6].sample = Mix_LoadWAV("samples/HamburgerPrease.wav");
+    button_vec[6].samplePath = "samples/HamburgerPrease.wav";
+    button_vec[6].sample = Mix_LoadWAV(button_vec[6].samplePath.c_str());
     button_vec[6].label = "HmbrgerPreas";
     button_vec[6].Button_Window->fields[0].label = button_vec[6].label;
     button_vec[6].sampleDuration = ((float)button_vec[6].sample->alen) / BYTES_S;
@@ -410,7 +419,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-    button_vec[7].sample = Mix_LoadWAV("samples/WowIE.wav");
+    button_vec[7].samplePath = "samples/WowIE.wav";
+    button_vec[7].sample = Mix_LoadWAV(button_vec[7].samplePath.c_str());
     button_vec[7].label = "WowIE";
     button_vec[7].Button_Window->fields[0].label = button_vec[7].label;
     button_vec[7].sampleDuration = ((float)button_vec[7].sample->alen) / BYTES_S;
@@ -419,8 +429,8 @@ int main(){
 		printf( "Failed to load! SDL_mixer Error: %s\n", Mix_GetError() );
 		//success = false;
 	}
-
-    button_vec[8].sample = Mix_LoadWAV("samples/NoticeMe.wav");
+    button_vec[8].samplePath = "samples/NoticeMe.wav";
+    button_vec[8].sample = Mix_LoadWAV(button_vec[8].samplePath.c_str());
     button_vec[8].label = "NoticeMe";
     button_vec[8].Button_Window->fields[0].label = button_vec[8].label;
     button_vec[8].sampleDuration = ((float)button_vec[8].sample->alen) / BYTES_S;
@@ -480,7 +490,7 @@ int main(){
     glEnable (GL_BLEND); glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     int x = 0, y = 0;
-    char thisword[9] = { 181u, 'B', 'i', 'z', 'q', 'i', 't','!', '\0'};
+    char thisword[9] = { (char)181, 'B', 'i', 'z', 'q', 'i', 't','!', '\0'};
     button_vec[0].label = thisword;
     //While application is running
     while( !quit )
@@ -492,6 +502,7 @@ int main(){
             if( e.type == SDL_QUIT )
             {
                 quit = true;
+                printf("Quit request recieved\r\n");
             }
 
             //Handle button option window
@@ -519,7 +530,7 @@ int main(){
                 else
                 {
                     // check button window fields
-                    for(int i = 0; i < button_vec[button_win_ID].Button_Window->fields.size(); i++){
+                    for(std::size_t i = 0; i < button_vec[button_win_ID].Button_Window->fields.size(); i++){
                         button_vec[button_win_ID].Button_Window->fields[i].handleEvent(&e, x, y);
                     }
                 }
@@ -535,7 +546,7 @@ int main(){
                 }
             }
             if(esc_button){
-                for(int i = 0; i < esc_window.fields.size(); i++){
+                for(std::size_t i = 0; i < esc_window.fields.size(); i++){
                     esc_window.fields[i].handleEvent(&e, x, y);
                 }
             }
@@ -592,23 +603,27 @@ int main(){
         }
         //render();
 
-        
         //Update screen
         SDL_GL_SwapWindow( gWindow );
     }
     //FT_Done_Face(face);
     //Destroy the mutex
+    std::cout << "Exiting" << std::endl;
     SDL_WaitThread(threadID, NULL);
+    printf("After SDL_WaitThread\r\n");
     //SDL_WaitThread(txtThreadID, NULL);
     SDL_DestroyMutex( data.counterLock );
+    printf("After SDL_DestroyMutex\r\n");
     data.counterLock = NULL;
 
     //Disable text input
     SDL_StopTextInput();
+    printf("After SDL_StopTextInput\r\n");
 	}
     
 	//Free resources and close SDL
 	close();
+    printf("After close\r\n");
 
 	return 0;
 }
@@ -926,7 +941,7 @@ int counting_thread(void* data){
             }
             if(thd_data->ButtonID->size()){
                 //for(auto it = thd_data->ButtonID->begin();it != thd_data->ButtonID->end() ; it++)
-                for(int i = 0; i < thd_data->ButtonID->size(); i++){
+                for(std::size_t i = 0; i < thd_data->ButtonID->size(); i++){
                      auto it = thd_data->ButtonID->begin() + i;
                      //printf("timeRemain: ;%f\n", *it->timeRemain);
                      *it->timeRemain -= TEN_MS_F;
@@ -943,5 +958,7 @@ int counting_thread(void* data){
            gRenderQuad = true;
         }
     }
+    std::cout << "Exiting count thread" << std::endl;
+    return 0;
 }
 

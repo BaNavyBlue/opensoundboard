@@ -1,17 +1,17 @@
 #OBJS specifies which files to compile as part of the project
 MAIN = sb.cpp
-SRC = ./src/glad.c button.cpp opt_window.cpp opt_field.cpp
+SRC = ./src/glad.c ./src/simdjson.cpp button.cpp opt_window.cpp opt_field.cpp save_config.cpp
 
 
 OBJS = $(MAIN) $(SRC)
-INCL = -I ./include -I ./include/learnopengl -I/usr/include/freetype2
+INCL = -I ./include -I ./include/learnopengl -I/usr/include/freetype2 -I/usr/include/SDL2
 
 #CC specifies which compiler we're using
 CC = g++
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 # -w suppresses all warnings
-COMPILER_FLAGS = -std=c++17 -w
+COMPILER_FLAGS = -std=c++17 -Wall
 
 #LINKER_FLAGS specifies the libraries we're linking against
 LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lGLU -lGL -ldl -lfreetype -lstdc++fs
